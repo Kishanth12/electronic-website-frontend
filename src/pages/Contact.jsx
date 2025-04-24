@@ -9,7 +9,7 @@ const Contact = () => {
         {<img src={image} alt="Selected" className="w-32 h-32 mb-4" />} 
       <div>
         <button onClick={()=>setImage('/assets.logoo.png')}>logo</button>
-        <button onClick={()=>setImage(assets.bin_icon)}>bin</button>
+        {/* <button onClick={()=>setImage(assets.bin_icon)}>bin</button>//front */}
       </div>
     </div>
   )
