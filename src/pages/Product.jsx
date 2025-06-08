@@ -57,7 +57,7 @@ const Product = () => {
             <img src={assets.star_icon} alt="" className="w-3 5" />
             <img src={assets.star_icon} alt="" className="w-3 5" />
             <img src={assets.star_icon} alt="" className="w-3 5" />
-            <p className='pl-2'>({productData.reviews.length})</p>
+            {productData.reviews && <p className='pl-2'>({productData.reviews.length})</p>}
           </div>
           <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
           <p className='mt-5 text-gray w-4/5 '>{productData.description}</p>
@@ -84,10 +84,19 @@ const Product = () => {
       <div className='mt-20'>
         <div className='flex'>
           <b className='border px-5 py-3 text-sm'>Description</b>
-          <p className='border px-5 py-3 text-sm'>Reviews({productData.reviews.length})</p>
+          {productData.reviews && productData.reviews.length > 0 && (
+           <p className='border px-5 py-3 text-sm'>
+            Reviews ({productData.reviews.length})
+      </p>
+    )}
         </div>
         <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
-         <div><ProductReviews reviews={productData.reviews}/></div> 
+           {productData.reviews && productData.reviews.length > 0 && (
+      <div>
+        <h3 className="font-semibold text-black mt-4 mb-2">Customer Reviews</h3>
+        <ProductReviews reviews={productData.reviews} />
+      </div>
+    )}
          
         </div>
       </div>

@@ -12,7 +12,7 @@ const ShopContextProvider =(props)=>{  //the component that stores and provides 
     const[search,setSearch] = useState('');
     const[showSearch,setShowSearch]=useState(false);
     const [cartItems,setCartItems] = useState({});
-    const[products,setProducts]=useState([])
+    const[products,setProducts]=useState([]);
     const[token,setToken]=useState([])
     const navigate = useNavigate();
     
@@ -97,19 +97,32 @@ const ShopContextProvider =(props)=>{  //the component that stores and provides 
       return totalAmount;
    }
 
-   const getProducts=async()=>{
-      try {
-         const response = await axios.get(backendUrl+'/api/product/list')
-         if(response.data.success){
-            setProducts(response.data.products)
-         }else{
-            toast.error(response.data.message)
-         }
-      } catch (error) {
-         console.log(error)
-         toast.error(error.message)
-      }
-   }
+const getProducts = async () => {
+  try {
+    const response = await axios.get(backendUrl + '/api/product/list');
+
+    if (response.data.success) {
+      const productsWithAvgRating = response.data.products.map(product => {
+        if (!product.reviews.length) {
+          return { ...product, avgRating: "4.0" };
+        }
+
+        const totalRating = product.reviews.reduce((sum, review) => sum + review.rating, 0);
+        const avgRating = parseFloat((totalRating / product.reviews.length).toFixed(1));
+
+        return { ...product, avgRating };
+      });
+
+      setProducts(productsWithAvgRating);
+    } else {
+      toast.error(response.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message);
+  }
+}
+
    const getUserCart=async(token)=>{
       try {
         const response=  await axios.get(backendUrl+'/api/cart/get',{},{headers:{token}})
@@ -122,6 +135,7 @@ const ShopContextProvider =(props)=>{  //the component that stores and provides 
       }
    }
 
+ 
  useEffect(()=>{
    getProducts()
  },[])

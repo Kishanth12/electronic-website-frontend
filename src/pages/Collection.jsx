@@ -12,14 +12,14 @@ const Collection = () => {
   const[subCategory,setSubCategory] =useState([]);
   const[sortType,setSortType] =useState('relevant')
 
-  const toggleCategory =(e)=>{
-    if(category.includes(e.target.value)){
-      setCategory(prev => prev.filter(item => item !== e.target.value))
-    }else{
-      setCategory(prev =>[...prev,e.target.value])
-    }
+  // const toggleCategory =(e)=>{
+  //   if(category.includes(e.target.value)){
+  //     setCategory(prev => prev.filter(item => item !== e.target.value))
+  //   }else{
+  //     setCategory(prev =>[...prev,e.target.value])
+  //   }
 
-  }
+  // }
   const toggleSubCategory =(e)=>{
     if(subCategory.includes(e.target.value)){
       setSubCategory(prev => prev.filter(item => item !== e.target.value)) // remove if it is already checked
@@ -35,9 +35,9 @@ const Collection = () => {
       productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
     }
 
-    if(category.length > 0){
-      productsCopy =productsCopy.filter(item => category.includes(item.category))
-    }
+    // if(category.length > 0){
+    //   productsCopy =productsCopy.filter(item => category.includes(item.category))
+    // }
     
     if(subCategory.length > 0){
       productsCopy =productsCopy.filter(item =>  subCategory.map(s => s.toLowerCase()).includes(item.subCategory.toLowerCase()))
@@ -139,7 +139,7 @@ const Collection = () => {
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
         {
           filterProducts.map((item,id)=>(
-            <ProductItems key={id} name={item.name} id={item._id} price={item.price} image={item.image} ratings={item.rating}/>
+            <ProductItems key={id} name={item.name} id={item._id} price={item.price} image={item.image} ratings={item.avgRating}/>
           ))
         }
 

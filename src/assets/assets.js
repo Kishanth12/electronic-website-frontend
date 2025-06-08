@@ -108,7 +108,7 @@ export const products = [
       "category": "Electronics",
       "subCategory": "Smartphones",
       "sizes": ["128GB", "256GB", "512GB"],
-      "brand": "XPhone",
+      "brand": "Apple",
       "rating": 3.9,
       "stock": 60,
       "warranty": "1 year",
