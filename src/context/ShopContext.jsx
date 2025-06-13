@@ -13,6 +13,8 @@ const ShopContextProvider =(props)=>{  //the component that stores and provides 
     const[showSearch,setShowSearch]=useState(false);
     const [cartItems,setCartItems] = useState({});
     const[products,setProducts]=useState([]);
+    const[categories,setCategories]=useState([]);
+   const[brands,setBrands]=useState([]);
     const[token,setToken]=useState([])
     const navigate = useNavigate();
     
@@ -123,6 +125,29 @@ const getProducts = async () => {
   }
 }
 
+ const getCategories = async()=>{
+   try {
+      const res = await axios.get(backendUrl+'/api/category/list');
+      if(res.data.success){
+        setCategories(res.data.categories)
+      }
+   } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+   }
+}
+ const getBrands = async()=>{
+   try {
+      const res = await axios.get(backendUrl+'/api/brand/list');
+      if(res.data.success){
+        setBrands(res.data.brands)
+      }
+   } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+   }
+}
+
    const getUserCart=async(token)=>{
       try {
         const response=  await axios.get(backendUrl+'/api/cart/get',{},{headers:{token}})
@@ -137,7 +162,7 @@ const getProducts = async () => {
 
  
  useEffect(()=>{
-   getProducts()
+   getProducts(),getCategories(),getBrands()
  },[])
 
  useEffect(()=>{
@@ -150,8 +175,9 @@ const getProducts = async () => {
  
  const value ={
     products,currency,delivery_fee,
+    categories,brands,
     search,setSearch,showSearch,setShowSearch,
-    cartItems,addToCart,
+    cartItems,addToCart,setCartItems,
     getCartCount,updateQuantity,
     getCartAmount,
     navigate,
