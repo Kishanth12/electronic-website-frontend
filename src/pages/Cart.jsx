@@ -3,9 +3,9 @@ import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import { ShopContext } from "../context/ShopContext";
 import CartTotal from "../components/CartTotal";
+
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity, navigate } =
-    useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 

@@ -15,7 +15,7 @@ const ShopContextProvider =(props)=>{  //the component that stores and provides 
     const[products,setProducts]=useState([]);
     const[categories,setCategories]=useState([]);
    const[brands,setBrands]=useState([]);
-    const[token,setToken]=useState([])
+    const[token,setToken]=useState('')
     const navigate = useNavigate();
     
  const addToCart=async(itemId,size)=>{ // Adds an item to the cart with a selected size. store data in object
@@ -150,7 +150,7 @@ const getProducts = async () => {
 
    const getUserCart=async(token)=>{
       try {
-        const response=  await axios.get(backendUrl+'/api/cart/get',{},{headers:{token}})
+        const response=  await axios.get(backendUrl+'/api/cart/get',{headers:{token}})
         if (response.data.success) {
          setCartItems(response.data.cartData)
         }
@@ -170,7 +170,7 @@ const getProducts = async () => {
       setToken(localStorage.getItem('token'))
       getUserCart(localStorage.getItem('token'))
    }
- })
+ },[])
 
  
  const value ={
